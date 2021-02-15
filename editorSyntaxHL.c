@@ -58,10 +58,10 @@ struct editorSyntax HLDB[] = {
         HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
     },
     {
-        "javascript",
-        JVSCRIPT_HL_EXTENSIONS,
+        "javascript"   JVSCRIPT_HL_EXTENSIONS,
         JVSCRIPT_HL_KEYWORDS,
-        "//", "/*", "*/"
+        "//", "/*", "*/",
+        HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
     }
 };
 
