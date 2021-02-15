@@ -7,5 +7,6 @@ void editorDrawStatusBar(struct abuf *ab);
 void editorSetStatusMessage(const char *fmt, ...);
 void editorDrawMessageBar(struct abuf *ab);
 void editorScroll(void);
+int intLen(unsigned n);
 
 #endif

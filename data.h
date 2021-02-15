@@ -95,6 +95,7 @@ struct editorConfig {
     int rowoff;
     int coloff;
     int rx;
+    int widthlen;
     char *filename;
     char statusmsg[80];
     time_t statusmsg_time;

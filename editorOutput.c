@@ -70,6 +70,12 @@ void editorDrawRows(struct abuf *ab)
             unsigned char *hl = &E.row[filerow].hl[E.coloff];
             int current_color = -1;
 
+            if (E.numrows > 0) {
+                char linenum[16];
+                int linenum_len = snprintf(linenum, sizeof(linenum), "%*d ", E.widthlen, filerow + 1);
+                abAppend(ab, linenum, linenum_len);
+           }
+
             int j;
             for (j = 0; j < len; j++) {
                 if (iscntrl(c[j])) {
@@ -78,7 +84,7 @@ void editorDrawRows(struct abuf *ab)
                     abAppend(ab, &sym, 1);
                     abAppend(ab, "\x1b[m", 3);
                     if (current_color != -1) {
-                        char buf[16];
+                        char buf[20];
                         int clen = snprintf(buf, sizeof(buf), "x1b[%dm", current_color);
                         abAppend(ab, buf, clen);
                     }
@@ -174,4 +180,17 @@ void editorDrawMessageBar(struct abuf *ab)
         msglen = E.screencols;
     if (msglen && time(NULL) - E.statusmsg_time < 5)
         abAppend(ab, E.statusmsg, msglen);
+}
+
+int intLen(unsigned n) {
+    if (n >= 1000000000) return 10;
+    if (n >= 100000000)  return 9;
+    if (n >= 10000000)   return 8;
+    if (n >= 1000000)    return 7;
+    if (n >= 100000)     return 6;
+    if (n >= 10000)      return 5;
+    if (n >= 1000)       return 4;
+    if (n >= 100)        return 3;
+    if (n >= 10)         return 2;
+    return 1;
 }

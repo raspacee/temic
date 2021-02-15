@@ -17,11 +17,11 @@ void editorMoveCursor(int key)
 
     switch(key) {
         case ARROW_LEFT:
-            if (E.cx != 0) {
+            if (E.cx != E.widthlen + 1) {
                 E.cx--;
             } else if (E.cy > 0) {
                 E.cy--;
-                E.cx = E.row[E.cy].size;
+                E.cx = E.row[E.cy].size + E.widthlen + 1;
             }
             break;
         case ARROW_RIGHT:
@@ -29,7 +29,8 @@ void editorMoveCursor(int key)
                 E.cx++;
             } else if (row && E.cy < E.numrows - 1) {
                 E.cy++;
-                E.cx = 0;
+                E.cx = E.widthlen + 1;
+                E.coloff = 0;
             }
             break;
         case ARROW_UP:
@@ -47,8 +48,8 @@ void editorMoveCursor(int key)
     // snap cursor to end of line
     row = (E.cy >= E.numrows) ? NULL : &E.row[E.cy];
     int rowlen = row ? row->size : 0;
-    if (E.cx > rowlen)
-        E.cx = rowlen;
+    if (E.cx > rowlen + E.widthlen + 1)
+        E.cx = rowlen + E.widthlen + 1;
 }
 
 void editorProcessKeypress(void)
@@ -113,11 +114,12 @@ void editorProcessKeypress(void)
             break;
 
         case HOME_KEY:
-            E.cx = 0;
+            E.cx = E.widthlen + 1;
+            E.coloff = 0;
             break;
 
         case END_KEY:
-            E.cx = E.row[E.cy].rsize - 1;
+            E.cx = E.row[E.cy].rsize - 1 + E.widthlen + 1;
 
         case CTRL_L:
         case '\x1b':

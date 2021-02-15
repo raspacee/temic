@@ -12,9 +12,10 @@
 ## TODO
 
 - [x] Modularize the code.
-- [ ] Support more filetyps for syntax highlighting.
+- [ ] Support more filetypes for syntax highlighting.
 - [ ] Read from a config file to make things more configurable.
-- [ ] Display line numbers and auto indenting.
+- [x] Display line numbers.
+- [ ] Auto Indenting.
 - [ ] Normal and editing mode just like in vim.
 - [ ] Much more ?
 
