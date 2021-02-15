@@ -8,11 +8,32 @@ extern struct editorConfig E;
 char *C_HL_EXTENSIONS[] = { ".c", ".h", ".cpp", NULL };
 char *C_HL_KEYWORDS[] = {
     "switch", "if", "while", "for", "break", "continue", "return", "else",
-    "struct", "union", "typedef", "static", "enum", "class", "case",
+    "struct", "union", "typedef", "static", "enum", "class", "case", "true", "false",
 
     "int|", "long|", "double|", "float|", "char|", "unsigned|", "signed|",
     "void|", NULL
 };
+
+char *PY_HL_EXTENSIONS[] = { ".p", NULL };
+char *PY_HL_KEYWORDS[] = {
+    "and", "as", "assert", "async", "await", "break", "class", "continue", "def", "del", "elif", "else", "except", "False", "finally", "for", "from", "global", "if", "import", "in", "is", "lambda", "None", "nonlocal", "not", "or", "pass", "raise", "return", "True", "try", "while", "with", "yield","let", NULL
+};
+
+char *JV_HL_EXTENSIONS[] = { ".java", NULL }
+char *JV_HL_KEYWORDS[] = {
+    "continue", "for", "new", "switch", "default", "goto",
+    "do", "if", "this", "break", "case", "catch", "else",
+    "exports", "extends", "finally", "import", "instanceof", "module", "new", "package", "private", "protected", "public", "requires", "return", "static", "super", "synchronized", "throw", "throws", "transient", "try", "volatile", "while", "implements", "strictfp", "var",
+
+    "boolean|", "byte|", "char|", "const|", "double|", "enum|", "float|", "int|", "long|", "interface|", "short|", "void|", NULL
+}
+
+char *JVSCRIPT_HL_EXTENSIONS[] = { ".js", NULL }
+char *JVSCRIPT_HL_KEYWORDS[] = {
+    "abstract", "arguments", "await", "async", "break", "case", "catch", "class", "const", "continue", "debugger", "default", "delete", "do", "else", "eval", "export", "extends", "final", "finally", "for", "function", "goto", "if", "implements", "import", "in", "instanceof", "interface", "native", "new", "package", "private", "protected", "public", "return", "static", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "try", "typeof", "volatile", "while", "with", "yield", "let"
+
+    "byte|", "boolean|", "char|", "enum|", "true|", "false|", "float|", "int|", "long|", "null|", "void|", NULL
+}
 
 struct editorSyntax HLDB[] = {
     {
@@ -22,6 +43,26 @@ struct editorSyntax HLDB[] = {
         "//", "/*", "*/",
         HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
     },
+    {
+        "py",
+        PY_HL_EXTENSIONS,
+        PY_HL_KEYWORDS,
+        "#", "\"\"\"", "\"\"\"",
+        HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
+    },
+    {
+        "java",
+        JV_HL_EXTENSIONS,
+        JV_HL_KEYWORDS,
+        "//", "/*", "*/",
+        HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
+    },
+    {
+        "javascript",
+        JVSCRIPT_HL_EXTENSIONS,
+        JVSCRIPT_HL_KEYWORDS,
+        "//", "/*", "*/"
+    }
 };
 
 #define HLDB_ENTRIES (sizeof(HLDB) / sizeof(HLDB[0]))
