@@ -101,14 +101,14 @@ void editorUpdateRow(struct erow *row)
     }
 
     free(row->render);
-    row->render = malloc(row->size + tabs * (KILO_TAB_STOP - 1) + 1);
+    row->render = malloc(row->size + tabs * (TEMIC_TAB_STOP - 1) + 1);
 
     int idx = 0;
 
     for (j = 0; j < row->size; j++) {
         if (row->chars[j] == '\t') {
             row->render[idx++] = ' ';
-            while (idx % KILO_TAB_STOP != 0)
+            while (idx % TEMIC_TAB_STOP != 0)
                 row->render[idx++] = ' ';
         } else {
             row->render[idx++] = row->chars[j];
@@ -127,7 +127,7 @@ int editorRowCxToRx(struct erow *row, int cx)
 
     for (j = 0; j < cx; j++) {
         if (row->chars[j] == '\t') {
-            rx += (KILO_TAB_STOP - 1) - (rx % KILO_TAB_STOP);
+            rx += (TEMIC_TAB_STOP - 1) - (rx % TEMIC_TAB_STOP);
         }
         rx++;
     }
@@ -184,7 +184,7 @@ int editorRowRxToCx(struct erow *row, int rx)
 
     for (cx = 0; cx < row->size; cx++) {
         if (row->chars[cx] == '\t') {
-            cur_rx += (KILO_TAB_STOP - 1);
+            cur_rx += (TEMIC_TAB_STOP - 1);
         }
         cur_rx++;
 

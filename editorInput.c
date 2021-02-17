@@ -54,7 +54,7 @@ void editorMoveCursor(int key)
 
 void editorProcessKeypress(void)
 {
-    static int quit_times = KILO_QUIT_TIMES;
+    static int quit_times = TEMIC_QUIT_TIMES;
 
     int c = editorReadKey();
 
@@ -130,7 +130,7 @@ void editorProcessKeypress(void)
             break;
     }
 
-    quit_times = KILO_QUIT_TIMES;
+    quit_times = TEMIC_QUIT_TIMES;
 }
 
 char *editorPrompt(char *prompt, void (*callback)(char *, int))

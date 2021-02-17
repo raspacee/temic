@@ -18,9 +18,9 @@
 #include <time.h>
 #include <sys/types.h>
 
-#define KILO_VERSION "0.0.1"
-#define KILO_TAB_STOP 8
-#define KILO_QUIT_TIMES 3
+#define TEMIC_VERSION "0.0.1"
+#define TEMIC_TAB_STOP 8
+#define TEMIC_QUIT_TIMES 3
 
 #define ABUF_INIT {NULL, 0};
 
