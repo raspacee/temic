@@ -25,7 +25,7 @@ void editorMoveCursor(int key)
             }
             break;
         case ARROW_RIGHT:
-            if (row && E.cx < row->size) {
+            if (row && (E.cx - E.widthlen) < row->size) {
                 E.cx++;
             } else if (row && E.cy < E.numrows - 1) {
                 E.cy++;
@@ -61,6 +61,11 @@ void editorProcessKeypress(void)
     switch(c) {
         case '\r':
             editorInsertNewline();
+            break;
+
+        case CTRL_C:
+            if (E.filemode == INSERT_MODE)
+                E.filemode = NORMAL_MODE;
             break;
 
         case CTRL_F:
@@ -125,8 +130,54 @@ void editorProcessKeypress(void)
         case '\x1b':
             break;
 
+        case 'i':
+        case 'a':
+        case 'o':
+        case 'O':
+        {
+            if (E.filemode == NORMAL_MODE) {
+                E.filemode = INSERT_MODE;
+                if (c == 'o') {
+                    if (E.cy < E.numrows - 1) {
+                            E.cx = E.widthlen + 1;
+                            E.cy++;
+                            editorInsertNewline();
+                            E.cy--;
+                    }
+                } else if (c == 'O') {
+                    if (E.cy > 1) {
+                        E.cx = E.widthlen + 1;
+                        editorInsertNewline();
+                        E.cy--;
+                    }
+                }
+                break;
+            }
+        }
+
+
+        case 'j':
+        case 'k':
+        case 'h':
+        case 'l':
+        {
+            if (E.filemode == NORMAL_MODE) {
+                if (c == 'j')
+                    editorMoveCursor(ARROW_DOWN);
+                else if (c == 'k')
+                    editorMoveCursor(ARROW_UP);
+                else if (c == 'h')
+                    editorMoveCursor(ARROW_LEFT);
+                else if (c == 'l')
+                    editorMoveCursor(ARROW_RIGHT);
+            }
+        }
+
         default:
-            editorInsertChar(c);
+        {
+            if (E.filemode == INSERT_MODE)
+                editorInsertChar(c);
+        }
             break;
     }
 

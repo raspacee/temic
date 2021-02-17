@@ -22,15 +22,20 @@
 #define TEMIC_TAB_STOP 8
 #define TEMIC_QUIT_TIMES 3
 
+#define NORMAL_MODE 1
+#define INSERT_MODE 2
+
 #define ABUF_INIT {NULL, 0};
 
 #define HL_HIGHLIGHT_NUMBERS (1<<0)
 #define HL_HIGHLIGHT_STRINGS (1<<1)
 
 enum EDITOR_KEYS {
+    CTRL_C = 3,
     CTRL_F = 6,
     CTRL_H = 8,
     CTRL_L = 12,
+    CTRL_O = 15,
     CTRL_Q = 17,
     CTRL_S = 19,
     BACKSPACE = 127,
@@ -96,6 +101,7 @@ struct editorConfig {
     int coloff;
     int rx;
     int widthlen;
+    int filemode;
     char *filename;
     char statusmsg[80];
     time_t statusmsg_time;

@@ -16,6 +16,7 @@ void initEditor(void)
     E.rowoff = 0;
     E.coloff = 0;
     E.rx = 0;
+    E.filemode = NORMAL_MODE;
     E.filename = NULL;
     E.statusmsg[0] = '\0';
     E.statusmsg_time = 0;

@@ -41,6 +41,7 @@ void editorOpen(char *filename)
     free(line);
     fclose(fp);
 
+    // for line numbering
     E.widthlen = intLen(E.numrows);
     if (E.screencols > E.widthlen) {
         E.screencols -= (E.widthlen + 1);
