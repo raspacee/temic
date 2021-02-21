@@ -124,7 +124,7 @@ void editorProcessKeypress(void)
             break;
 
         case END_KEY:
-            E.cx = E.row[E.cy].rsize - 1 + E.widthlen + 1;
+            E.cx = E.row[E.cy].rsize + E.widthlen + 1;
 
         case CTRL_L:
         case '\x1b':
@@ -132,6 +132,7 @@ void editorProcessKeypress(void)
 
         case 'i':
         case 'a':
+        case 'A':
         case 'o':
         case 'O':
         {
@@ -150,6 +151,10 @@ void editorProcessKeypress(void)
                         editorInsertNewline();
                         E.cy--;
                     }
+                } else if (c == 'a') {
+                    E.cx++;
+                } else if (c == 'A') {
+                    E.cx = E.row[E.cy].rsize + E.widthlen + 1;
                 }
                 break;
             }

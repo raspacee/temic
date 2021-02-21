@@ -31,6 +31,7 @@
 #define HL_HIGHLIGHT_STRINGS (1<<1)
 
 enum EDITOR_KEYS {
+    CTRL_A = 1,
     CTRL_C = 3,
     CTRL_F = 6,
     CTRL_H = 8,
