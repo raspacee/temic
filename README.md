@@ -16,6 +16,6 @@
 - [ ] Read from a config file to make things more configurable.
 - [x] Display line numbers.
 - [ ] Auto Indenting.
-- [ ] Normal and editing mode just like in vim.
+- [x] Normal and editing mode just like in vim.
 - [ ] Much more ?
 
