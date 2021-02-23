@@ -51,7 +51,7 @@ void editorInsertNewline(void)
     } else {
         struct erow *row = &E.row[E.cy];
 
-        editorInsertRow(E.cy + 1, &row->chars[E.cx - (E.widthlen + 1)], row->size - E.cx - (E.widthlen + 1));
+        editorInsertRow(E.cy + 1, &row->chars[E.cx - (E.widthlen + 1)], row->size - E.cx + (E.widthlen + 1));
         row = &E.row[E.cy];
         row->size = E.cx - (E.widthlen + 1);
         row->chars[row->size] = '\0';
