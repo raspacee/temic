@@ -12,7 +12,7 @@
 ## TODO
 
 - [x] Modularize the code.
-- [ ] Support more filetypes for syntax highlighting.
+- [x] Support more filetypes for syntax highlighting.
 - [ ] Read from a config file to make things more configurable.
 - [x] Display line numbers.
 - [ ] Auto Indenting.
