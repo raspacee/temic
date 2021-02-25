@@ -47,7 +47,8 @@ struct editorSyntax HLDB[] = {
         "c",
         C_HL_EXTENSIONS,
         C_HL_KEYWORDS,
-        "//", "/*", "*/",
+        "//", "/*", "*/",   // comment syntax
+        "{", "}",           // braces syntax
         HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
     },
     {
@@ -55,6 +56,7 @@ struct editorSyntax HLDB[] = {
         PY_HL_EXTENSIONS,
         PY_HL_KEYWORDS,
         "#", "\"\"\"", "\"\"\"",
+        ":", "",
         HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
     },
     {
@@ -62,6 +64,7 @@ struct editorSyntax HLDB[] = {
         JV_HL_EXTENSIONS,
         JV_HL_KEYWORDS,
         "//", "/*", "*/",
+        "{", "}",
         HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
     },
     {
@@ -69,6 +72,7 @@ struct editorSyntax HLDB[] = {
         JVSCRIPT_HL_EXTENSIONS,
         JVSCRIPT_HL_KEYWORDS,
         "//", "/*", "*/",
+        "{", "}",
         HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
     },
     {
@@ -76,6 +80,7 @@ struct editorSyntax HLDB[] = {
         GO_HL_EXTENSIONS,
         GO_HL_KEYWORDS,
         "//", "/*", "*/",
+        "{", "}",
         HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
     }
 };

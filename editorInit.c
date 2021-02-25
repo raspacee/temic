@@ -22,6 +22,7 @@ void initEditor(void)
     E.statusmsg_time = 0;
     E.dirty = 0;
     E.syntax = NULL;
+    E.indent = 0;
 
     if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
 

@@ -51,6 +51,10 @@ enum EDITOR_KEYS {
     DEL_KEY
 };
 
+enum EDITOR_INDENT {
+    TAB = 9
+};
+
 enum EDITOR_HIGHLIGHT {
     HL_NORMAL = 0,
     HL_KEYWORD1,
@@ -87,6 +91,8 @@ struct editorSyntax {
     char *singleline_comment_start;
     char *multiline_comment_start;
     char *multiline_comment_end;
+    char *brace_start;
+    char *brace_end;
     int flags;
 };
 
@@ -108,6 +114,7 @@ struct editorConfig {
     time_t statusmsg_time;
     int dirty;
     struct editorSyntax *syntax;
+    int indent;
 };
 
 #endif

@@ -48,6 +48,7 @@ void editorInsertNewline(void)
 {
     if (E.cx == E.widthlen + 1) {
         editorInsertRow(E.cy, "", 0);
+
     } else {
         struct erow *row = &E.row[E.cy];
 
