@@ -11,7 +11,7 @@ void editorInsertChar(int c)
     if (E.cy == E.numrows)
         editorInsertRow(E.numrows, "", 0);
 
-    editorRowInsertChar(&E.row[E.cy], E.cx, c);
+    editorRowInsertChar(&E.row[E.cy], E.cx - E.widthlen - 1, c);
     E.cx++;
 }
 
@@ -24,7 +24,7 @@ void editorDelChar(void)
 
     struct erow *row = &E.row[E.cy];
     if (E.cx > E.widthlen + 1) {
-        editorRowDelChar(row, E.cx - 1);
+        editorRowDelChar(row, E.cx - E.widthlen - 2);
         E.cx--;
     } else {
         E.cx = E.row[E.cy - 1].size + E.widthlen + 1;

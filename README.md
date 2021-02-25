@@ -7,7 +7,7 @@
 
 ## Usage
 
-- Compile using the 'make' command and run './kilo [filename]'
+- Compile using the 'make' command and run './temic [filename]'
 
 ## TODO
 
