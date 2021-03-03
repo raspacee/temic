@@ -15,7 +15,7 @@
 - [x] Support more filetypes for syntax highlighting.
 - [ ] Read from a config file to make things more configurable.
 - [x] Display line numbers.
-- [ ] Auto Indenting.
+- [x] Auto Indenting.
 - [x] Normal and editing mode just like in vim.
 - [ ] Much more ?
 
