@@ -14,7 +14,7 @@ char *C_HL_KEYWORDS[] = {
     "void|", NULL
 };
 
-char *PY_HL_EXTENSIONS[] = { ".p", NULL };
+char *PY_HL_EXTENSIONS[] = { ".py", NULL };
 char *PY_HL_KEYWORDS[] = {
     "and", "as", "assert", "async", "await", "break", "class", "continue", "def", "del", "elif", "else", "except", "False", "finally", "for", "from", "global", "if", "import", "in", "is", "lambda", "None", "nonlocal", "not", "or", "pass", "raise", "return", "True", "try", "while", "with", "yield","let", NULL
 };
@@ -30,7 +30,7 @@ char *JV_HL_KEYWORDS[] = {
 
 char *JVSCRIPT_HL_EXTENSIONS[] = { ".js", NULL };
 char *JVSCRIPT_HL_KEYWORDS[] = {
-    "abstract", "arguments", "await", "async", "break", "case", "catch", "class", "const", "continue", "debugger", "default", "delete", "do", "else", "eval", "export", "extends", "final", "finally", "for", "function", "goto", "if", "implements", "import", "in", "instanceof", "interface", "native", "new", "package", "private", "protected", "public", "return", "static", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "try", "typeof", "volatile", "while", "with", "yield", "let"
+    "abstract", "arguments", "await", "async", "break", "case", "catch", "class", "const", "continue", "debugger", "default", "delete", "do", "else", "eval", "export", "extends", "final", "finally", "for", "function", "goto", "if", "implements", "import", "in", "instanceof", "interface", "native", "new", "package", "private", "protected", "public", "return", "static", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "try", "typeof", "volatile", "while", "with", "yield", "let",
 
     "byte|", "boolean|", "char|", "enum|", "true|", "false|", "float|", "int|", "long|", "null|", "void|", NULL
 };
@@ -48,7 +48,7 @@ struct editorSyntax HLDB[] = {
         C_HL_EXTENSIONS,
         C_HL_KEYWORDS,
         "//", "/*", "*/",   // comment syntax
-        "{", "}",           // braces syntax
+        '{', '}',           // braces syntax
         HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
     },
     {
@@ -56,7 +56,7 @@ struct editorSyntax HLDB[] = {
         PY_HL_EXTENSIONS,
         PY_HL_KEYWORDS,
         "#", "\"\"\"", "\"\"\"",
-        ":", "",
+        ':', 'N', // N for null brace end
         HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
     },
     {
@@ -64,15 +64,15 @@ struct editorSyntax HLDB[] = {
         JV_HL_EXTENSIONS,
         JV_HL_KEYWORDS,
         "//", "/*", "*/",
-        "{", "}",
+        '{', '}',
         HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
     },
     {
-        "javascript",
+        "jvscript",
         JVSCRIPT_HL_EXTENSIONS,
         JVSCRIPT_HL_KEYWORDS,
         "//", "/*", "*/",
-        "{", "}",
+        '{', '}',
         HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
     },
     {
@@ -80,7 +80,7 @@ struct editorSyntax HLDB[] = {
         GO_HL_EXTENSIONS,
         GO_HL_KEYWORDS,
         "//", "/*", "*/",
-        "{", "}",
+        '{', '}',
         HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
     }
 };
@@ -252,7 +252,7 @@ void editorSelectSyntaxHighlight(void)
     for (unsigned int j = 0; j < HLDB_ENTRIES; j++) {
         struct editorSyntax *s = &HLDB[j];
 
-        int i = 0;
+        unsigned int i = 0;
         while (s->filematch[i]) {
             int is_ext = (s->filematch[i][0] == '.');
 

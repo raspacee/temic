@@ -10,7 +10,8 @@ void editorDelRow(int at);
 void editorRowInsertChar(struct erow *row, int at, int c);
 void editorRowDelChar(struct erow *row, int at);
 void editorRowAppendString(struct erow *row, char *s, size_t len);
-void editorInsertNewline(void);
+void editorInsertNewline(int caller);
+void editorCalculateIndent(void);
 int editorRowRxToCx(struct erow *row, int rx);
 int editorRowCxToRx(struct erow *row, int cx);
 

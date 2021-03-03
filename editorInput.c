@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <sys/types.h>
 #include "data.h"
 #include "editorInput.h"
@@ -60,7 +61,7 @@ void editorProcessKeypress(void)
 
     switch(c) {
         case '\r':
-            editorInsertNewline();
+            editorInsertNewline(DEFAULT_CALLER);
             break;
 
         case CTRL_C:
@@ -141,18 +142,17 @@ void editorProcessKeypress(void)
                 if (c == 'o') {
                     if (E.cy < E.numrows - 1) {
                             E.cx = E.widthlen + 1;
-                            E.cy++;
-                            editorInsertNewline();
-                            E.cy--;
+                            editorMoveCursor(ARROW_DOWN);
+                            editorInsertNewline(EDITOR_PROCESS_KEYPRESS);
                     }
                 } else if (c == 'O') {
                     if (E.cy > 1) {
                         E.cx = E.widthlen + 1;
-                        editorInsertNewline();
-                        E.cy--;
+                        editorInsertNewline(EDITOR_PROCESS_KEYPRESS);
                     }
                 } else if (c == 'a') {
-                    E.cx++;
+                    if (E.row[E.cy].chars[0] != ' ')
+                        E.cx++;
                 } else if (c == 'A') {
                     E.cx = E.row[E.cy].rsize + E.widthlen + 1;
                 }

@@ -10,6 +10,14 @@
 #define _GNU_SOURCE
 #endif
 
+#ifndef _POSIX_C_SOURCE
+#define _POSIX_C_SOURCE
+#endif
+
+#ifndef _XOPEN_SOURCE
+#define _XOPEN_SOURCE
+#endif
+
 #ifndef DATA_H_INCLUDE
 #define DATA_H_INCLUDE
 
@@ -55,6 +63,11 @@ enum EDITOR_INDENT {
     TAB = 9
 };
 
+enum FUNCTION_CALLERS {
+    DEFAULT_CALLER = 0,
+    EDITOR_PROCESS_KEYPRESS,
+};
+
 enum EDITOR_HIGHLIGHT {
     HL_NORMAL = 0,
     HL_KEYWORD1,
@@ -91,8 +104,8 @@ struct editorSyntax {
     char *singleline_comment_start;
     char *multiline_comment_start;
     char *multiline_comment_end;
-    char *brace_start;
-    char *brace_end;
+    char brace_start;
+    char brace_end;
     int flags;
 };
 

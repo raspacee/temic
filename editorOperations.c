@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "data.h"
 #include "editorOperations.h"
 #include "editorSyntaxHL.h"
@@ -44,11 +45,10 @@ void editorRowAppendString(struct erow *row, char *s, size_t len)
     E.dirty++;
 }
 
-void editorInsertNewline(void)
+void editorInsertNewline(int caller)
 {
     if (E.cx == E.widthlen + 1) {
         editorInsertRow(E.cy, "", 0);
-
     } else {
         struct erow *row = &E.row[E.cy];
 
@@ -61,6 +61,19 @@ void editorInsertNewline(void)
     E.cy++;
     E.cx = E.widthlen + 1;
     E.coloff = 0;
+
+    // for o and O functionality
+    if (caller == EDITOR_PROCESS_KEYPRESS)
+        E.cy--;
+
+    if (E.syntax) {
+        editorCalculateIndent();
+        if (E.indent) {
+            for (int i = 0; i < E.indent; i++) {
+                editorInsertChar(TAB);
+            }
+        }
+    }
 }
 
 // row operations
@@ -194,4 +207,43 @@ int editorRowRxToCx(struct erow *row, int rx)
     }
 
     return cx;
+}
+
+void editorCalculateIndent(void)
+{
+    E.indent = 0;
+
+    if (E.cy <= 1)
+        return;
+
+    int row, j;
+    if (E.syntax->brace_end == 'N') {
+        int in_indent = 0;
+
+        for (row = 1; row < E.cy; row++) {
+            if (E.indent && (E.row[E.cy - 1].size == 0 || !isspace(E.row[E.cy - 1].chars[0]))) {
+                E.indent = 0;
+                in_indent = 0;
+            }
+
+            for (j = 0; j < E.row[row].size; j++) {
+                if (E.row[row].chars[j] == E.syntax->brace_start && (j + 1 == E.row[row].size) && !in_indent) {
+                    E.indent++;
+                    in_indent = 1;
+                }
+            }
+        }
+    } else {
+        for (row = 0; row < E.cy; row++) {
+            for (j = 0; j < E.row[row].size; j++) {
+                if (E.row[row].chars[j] == E.syntax->brace_start) {
+                    E.indent++;
+                } else if (E.row[row].chars[j] == E.syntax->brace_end) {
+                    if (E.indent > 0) {
+                        E.indent--;
+                    }
+                }
+            }
+        }
+    }
 }
