@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <stdbool.h>
 #include <sys/types.h>
 #include "data.h"
 #include "editorInput.h"
@@ -61,7 +62,7 @@ void editorProcessKeypress(void)
 
     switch(c) {
         case '\r':
-            editorInsertNewline(DEFAULT_CALLER);
+            editorInsertNewline(true);
             break;
 
         case CTRL_C:
@@ -144,13 +145,13 @@ void editorProcessKeypress(void)
                     if (E.cy <= E.numrows - 1) {
                             E.cx = E.widthlen + 1;
                             editorMoveCursor(ARROW_DOWN);
-                            editorInsertNewline(EDITOR_PROCESS_KEYPRESS);
+                            editorInsertNewline(false);
                     }
                 } else if (c == 'O') {
                     // Inserts a empty row above the cursor
                     if (E.cy >= 0) {
                         E.cx = E.widthlen + 1;
-                        editorInsertNewline(EDITOR_PROCESS_KEYPRESS);
+                        editorInsertNewline(false);
                     }
                 } else if (c == 'a') {
                     if (E.cx < E.row[E.cy].rsize + E.widthlen + 1)

@@ -45,9 +45,10 @@ void editorRowAppendString(struct erow *row, char *s, size_t len)
     E.dirty++;
 }
 
-void editorInsertNewline(int caller)
+void editorInsertNewline(bool increment_cy)
 {
-    if (E.cx == E.widthlen + 1) {
+    if (E.cx == 0 || E.cx == E.widthlen + 1) {
+        E.widthlen = intLen(E.numrows);
         editorInsertRow(E.cy, "", 0);
     } else {
         struct erow *row = &E.row[E.cy];
@@ -59,8 +60,8 @@ void editorInsertNewline(int caller)
         editorUpdateRow(row);
     }
 
-    // For 'o' and 'O' functionality
-    if (caller != EDITOR_PROCESS_KEYPRESS)
+    // For 'o', 'O' and other functionality
+    if (increment_cy)
         E.cy++;
 
     E.cx = E.widthlen + 1;
