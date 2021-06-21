@@ -140,18 +140,20 @@ void editorProcessKeypress(void)
             if (E.filemode == NORMAL_MODE) {
                 E.filemode = INSERT_MODE;
                 if (c == 'o') {
-                    if (E.cy < E.numrows - 1) {
+                    // Inserts a empty row below the cursor
+                    if (E.cy <= E.numrows - 1) {
                             E.cx = E.widthlen + 1;
                             editorMoveCursor(ARROW_DOWN);
                             editorInsertNewline(EDITOR_PROCESS_KEYPRESS);
                     }
                 } else if (c == 'O') {
-                    if (E.cy > 1) {
+                    // Inserts a empty row above the cursor
+                    if (E.cy >= 0) {
                         E.cx = E.widthlen + 1;
                         editorInsertNewline(EDITOR_PROCESS_KEYPRESS);
                     }
                 } else if (c == 'a') {
-                    if (E.row[E.cy].chars[0] != ' ')
+                    if (E.cx < E.row[E.cy].rsize + E.widthlen + 1)
                         E.cx++;
                 } else if (c == 'A') {
                     E.cx = E.row[E.cy].rsize + E.widthlen + 1;

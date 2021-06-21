@@ -140,9 +140,11 @@ void editorDrawStatusBar(struct abuf *ab)
 {
     abAppend(ab, "\x1b[7m", 4);
 
-    char status[80], rstatus[20];
-    int len = snprintf(status, sizeof(status), "%.20s - %d lines %s", E.filename ? E.filename : "[No Name]", E.numrows, E.dirty ? "(modified)" : "");
-    int rlen = snprintf(rstatus, sizeof(rstatus), "%s | %s | %d/%d", (E.filemode == NORMAL_MODE ? "normal" : "insert"), E.syntax ? E.syntax->filetype : "no ft", E.cy + 1, E.numrows);
+    char status[80], rstatus[40];
+    int len = snprintf(status, sizeof(status), "%.20s - %d lines %s",
+        E.filename ? E.filename : "[No Name]", E.numrows, E.dirty ? "(modified)" : "");
+    int rlen = snprintf(rstatus, sizeof(rstatus), "%s | %s | %d/%d",
+        (E.filemode == NORMAL_MODE ? "normal" : "insert"), E.syntax ? E.syntax->filetype : "no ft", E.cy + 1, E.numrows);
 
     if (len > E.screencols)
         len = E.screencols;
@@ -155,8 +157,8 @@ void editorDrawStatusBar(struct abuf *ab)
             break;
         } else {
             abAppend(ab, " ", 1);
+            len++;
         }
-        len++;
     }
 
     abAppend(ab, "\x1b[m", 3);

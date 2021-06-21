@@ -27,7 +27,7 @@
 #include <sys/types.h>
 
 #define TEMIC_VERSION "0.0.1"
-#define TEMIC_TAB_STOP 8
+#define TEMIC_TAB_STOP 4
 #define TEMIC_QUIT_TIMES 3
 
 #define NORMAL_MODE 1

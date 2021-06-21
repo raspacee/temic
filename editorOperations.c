@@ -58,13 +58,13 @@ void editorInsertNewline(int caller)
         row->chars[row->size] = '\0';
         editorUpdateRow(row);
     }
-    E.cy++;
+
+    // For 'o' and 'O' functionality
+    if (caller != EDITOR_PROCESS_KEYPRESS)
+        E.cy++;
+
     E.cx = E.widthlen + 1;
     E.coloff = 0;
-
-    // for o and O functionality
-    if (caller == EDITOR_PROCESS_KEYPRESS)
-        E.cy--;
 
     if (E.syntax) {
         editorCalculateIndent();
@@ -218,6 +218,7 @@ void editorCalculateIndent(void)
 
     int row, j;
     if (E.syntax->brace_end == 'N') {
+        // For languages like Python that don't have ending braces
         int in_indent = 0;
 
         for (row = 1; row < E.cy; row++) {
@@ -234,6 +235,7 @@ void editorCalculateIndent(void)
             }
         }
     } else {
+        // For languages with ending braces
         for (row = 0; row < E.cy; row++) {
             for (j = 0; j < E.row[row].size; j++) {
                 if (E.row[row].chars[j] == E.syntax->brace_start) {
