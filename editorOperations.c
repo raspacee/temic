@@ -210,6 +210,68 @@ int editorRowRxToCx(struct erow *row, int rx)
     return cx;
 }
 
+void editorNextWordIndex(int cx, int cy)
+{
+    if (cx >= E.row[E.cy].size && cy < E.numrows) {
+        cx = 0;
+        cy++;
+
+        E.cx = cx;
+        E.cy = cy;
+        return;
+    }
+
+    for (int row = cy; row < E.numrows; row++) {
+        for (int cur_index = cx; cur_index < E.row[row].size - 1; cur_index++) {
+            char next_char = E.row[row].chars[cur_index + 1];
+            if (isspace(E.row[row].chars[cur_index]) && (isalnum(next_char) || ispunct(next_char))) {
+                E.cx = cur_index + 1;
+                E.cy = row;
+                return;
+            }
+        }
+        cx = 0;
+
+        if (isalnum(E.row[row].chars[cx]) || ispunct(E.row[row].chars[cx])) {
+            E.cx = cx;
+            E.cy = row + 1;
+            return;
+        }
+    }
+
+    return;
+}
+
+void editorPrevWordIndex(int cx, int cy)
+{
+    if (cx <= 0 && cy > 0) {
+        cx = E.row[E.cy - 1].size;
+        cy--;
+
+        E.cx = cx;
+        E.cy = cy;
+        return;
+    }
+
+    for (int row = cy; row >= 0; row--){
+        for (int cur_index = cx - 1; cur_index > 1; cur_index--) {
+            char cur_char = E.row[row].chars[cur_index];
+            if (isspace(E.row[row].chars[cur_index - 1]) && (isalnum(cur_char) || ispunct(cur_char) || isgraph(cur_char))) {
+                E.cx = cur_index;
+                E.cy = row;
+                return;
+            }
+        }
+        cx = E.row[row - 1].size;
+
+        E.cx = 0;
+        return;
+    }
+
+    return;
+}
+
+
 void editorCalculateIndent(void)
 {
     E.indent = 0;

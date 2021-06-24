@@ -14,6 +14,8 @@ void editorRowDelChar(struct erow *row, int at);
 void editorRowAppendString(struct erow *row, char *s, size_t len);
 void editorInsertNewline(bool increment_cy);
 void editorCalculateIndent(void);
+void editorNextWordIndex(int cx, int cy);
+void editorPrevWordIndex(int cx, int cy);
 int editorRowRxToCx(struct erow *row, int rx);
 int editorRowCxToRx(struct erow *row, int cx);
 

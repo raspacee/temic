@@ -150,6 +150,8 @@ void editorProcessKeypress(void)
         case 'k':
         case 'h':
         case 'l':
+        case 'w':
+        case 'b':
         {
             editorShortcutMoveKeys(c);
             if (E.filemode == NORMAL_MODE)
@@ -182,6 +184,12 @@ void editorShortcutMoveKeys(int key)
                 break;
             case 'l':
                 editorMoveCursor(ARROW_RIGHT);
+                break;
+            case 'w':
+                editorNextWordIndex(E.cx, E.cy);
+                break;
+            case 'b':
+                editorPrevWordIndex(E.cx, E.cy);
                 break;
         }
     }
