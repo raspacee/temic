@@ -19,19 +19,19 @@ void editorMoveCursor(int key)
 
     switch(key) {
         case ARROW_LEFT:
-            if (E.cx != E.widthlen + 1) {
+            if (E.cx != 0) {
                 E.cx--;
             } else if (E.cy > 0) {
                 E.cy--;
-                E.cx = E.row[E.cy].size + E.widthlen + 1;
+                E.cx = E.row[E.cy].size;
             }
             break;
         case ARROW_RIGHT:
-            if (row && (E.cx - E.widthlen + 1) <= row->rsize) {
+            if (row && (E.cx) < row->rsize) {
                 E.cx++;
             } else if (row && E.cy < E.numrows - 1) {
                 E.cy++;
-                E.cx = E.widthlen + 1;
+                E.cx = 0;
                 E.coloff = 0;
             }
             break;
@@ -50,8 +50,8 @@ void editorMoveCursor(int key)
     // snap cursor to end of line
     row = (E.cy >= E.numrows) ? NULL : &E.row[E.cy];
     int rowlen = row ? row->size : 0;
-    if (E.cx > rowlen + E.widthlen + 1)
-        E.cx = rowlen + E.widthlen + 1;
+    if (E.cx > rowlen)
+        E.cx = rowlen;
 }
 
 void editorProcessKeypress(void)
@@ -121,12 +121,12 @@ void editorProcessKeypress(void)
             break;
 
         case HOME_KEY:
-            E.cx = E.widthlen + 1;
+            E.cx = 0;
             E.coloff = 0;
             break;
 
         case END_KEY:
-            E.cx = E.row[E.cy].rsize + E.widthlen + 1;
+            E.cx = E.row[E.cy].rsize;
 
         case CTRL_L:
         case '\x1b':
@@ -143,21 +143,21 @@ void editorProcessKeypress(void)
                 if (c == 'o') {
                     // Inserts a empty row below the cursor
                     if (E.cy <= E.numrows - 1) {
-                            E.cx = E.widthlen + 1;
+                            E.cx = 0;
                             editorMoveCursor(ARROW_DOWN);
                             editorInsertNewline(false);
                     }
                 } else if (c == 'O') {
                     // Inserts a empty row above the cursor
                     if (E.cy >= 0) {
-                        E.cx = E.widthlen + 1;
+                        E.cx = 0;
                         editorInsertNewline(false);
                     }
                 } else if (c == 'a') {
-                    if (E.cx < E.row[E.cy].rsize + E.widthlen + 1)
+                    if (E.cx < E.row[E.cy].rsize)
                         E.cx++;
                 } else if (c == 'A') {
-                    E.cx = E.row[E.cy].rsize + E.widthlen + 1;
+                    E.cx = E.row[E.cy].rsize;
                 }
                 break;
             }

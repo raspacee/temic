@@ -45,7 +45,6 @@ void editorOpen(char *filename)
     E.widthlen = intLen(E.numrows);
     if (E.screencols > E.widthlen) {
         E.screencols -= (E.widthlen + 1);
-        E.cx = E.widthlen + 1;
     }
 
     E.dirty = 0;

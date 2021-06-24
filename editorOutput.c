@@ -26,8 +26,8 @@ void editorRefreshScreen(void)
     editorDrawStatusBar(&ab);
     editorDrawMessageBar(&ab);
 
-    char buf[32];
-    snprintf(buf, sizeof(buf), "\x1b[%d;%dH", (E.cy - E.rowoff) + 1, (E.rx - E.coloff) + 1);
+    char buf[32];                                     // E.widthlen + 1 is the length of the line numbering
+    snprintf(buf, sizeof(buf), "\x1b[%d;%dH", (E.cy - E.rowoff) + 1, (E.rx - E.coloff + E.widthlen + 1) + 1);
     abAppend(&ab, buf, strlen(buf));
 
     abAppend(&ab, "\x1b[?25h", 6);

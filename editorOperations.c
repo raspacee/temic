@@ -12,7 +12,7 @@ void editorInsertChar(int c)
     if (E.cy == E.numrows)
         editorInsertRow(E.numrows, "", 0);
 
-    editorRowInsertChar(&E.row[E.cy], E.cx - E.widthlen - 1, c);
+    editorRowInsertChar(&E.row[E.cy], E.cx, c);
     E.cx++;
 }
 
@@ -20,15 +20,15 @@ void editorDelChar(void)
 {
     if (E.cy == E.numrows)
         return;
-    if (E.cx == E.widthlen + 1 && E.cy == 0)
+    if (E.cy == 0)
         return;
 
     struct erow *row = &E.row[E.cy];
-    if (E.cx > E.widthlen + 1) {
-        editorRowDelChar(row, E.cx - E.widthlen - 2);
+    if (E.cx > 0) {
+        editorRowDelChar(row, E.cx - 1);
         E.cx--;
     } else {
-        E.cx = E.row[E.cy - 1].size + E.widthlen + 1;
+        E.cx = E.row[E.cy - 1].size;
         editorRowAppendString(&E.row[E.cy - 1], row->chars, row->size);
         editorDelRow(E.cy);
         E.cy--;
@@ -47,15 +47,15 @@ void editorRowAppendString(struct erow *row, char *s, size_t len)
 
 void editorInsertNewline(bool increment_cy)
 {
-    if (E.cx == 0 || E.cx == E.widthlen + 1) {
+    if (E.cx == 0) {
         E.widthlen = intLen(E.numrows);
         editorInsertRow(E.cy, "", 0);
     } else {
         struct erow *row = &E.row[E.cy];
 
-        editorInsertRow(E.cy + 1, &row->chars[E.cx - (E.widthlen + 1)], row->size - E.cx + (E.widthlen + 1));
+        editorInsertRow(E.cy + 1, &row->chars[E.cx], row->size - E.cx);
         row = &E.row[E.cy];
-        row->size = E.cx - (E.widthlen + 1);
+        row->size = E.cx;
         row->chars[row->size] = '\0';
         editorUpdateRow(row);
     }
@@ -64,7 +64,7 @@ void editorInsertNewline(bool increment_cy)
     if (increment_cy)
         E.cy++;
 
-    E.cx = E.widthlen + 1;
+    E.cx = 0;
     E.coloff = 0;
 
     if (E.syntax) {
