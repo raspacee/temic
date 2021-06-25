@@ -9,6 +9,9 @@
 
 - Compile using the 'make' command and run './temic [filename]'
 
+## Use case
+- This program can't replace text editors like vim or nano, but you can study the code to understand how text editors can be created
+
 ## TODO
 
 - [x] Modularize the code.
