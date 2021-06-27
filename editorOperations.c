@@ -224,7 +224,7 @@ void editorNextWordIndex(int cx, int cy)
     for (int row = cy; row < E.numrows; row++) {
         for (int cur_index = cx; cur_index < E.row[row].size - 1; cur_index++) {
             char next_char = E.row[row].chars[cur_index + 1];
-            if (isspace(E.row[row].chars[cur_index]) && (isalnum(next_char) || ispunct(next_char))) {
+            if (isspace(E.row[row].chars[cur_index]) && isgraph(next_char)) {
                 E.cx = cur_index + 1;
                 E.cy = row;
                 return;
@@ -232,7 +232,7 @@ void editorNextWordIndex(int cx, int cy)
         }
         cx = 0;
 
-        if (isalnum(E.row[row].chars[cx]) || ispunct(E.row[row].chars[cx])) {
+        if (isgraph(E.row[row].chars[cx])) {
             E.cx = cx;
             E.cy = row + 1;
             return;
