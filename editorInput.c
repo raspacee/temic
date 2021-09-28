@@ -143,14 +143,6 @@ void editorProcessKeypress(void)
         case 'O':
         {
            editorShortcutEditKeys(c);
-<<<<<<< HEAD
-=======
-            if (E.filemode == NORMAL_MODE) {
-                E.filemode = INSERT_MODE;
-                break;
-            }
-        }
->>>>>>> 2119163 (Improved code for input handling)
 
 		   if (isEditorNormalMode()) {
 			   editorModeToggle();
@@ -167,11 +159,7 @@ void editorProcessKeypress(void)
         case 'b':
         {
             editorShortcutMoveKeys(c);
-<<<<<<< HEAD
             if (isEditorNormalMode())
-=======
-            if (E.filemode == NORMAL_MODE)
->>>>>>> 2119163 (Improved code for input handling)
                 break;
         }
 
@@ -186,10 +174,6 @@ void editorProcessKeypress(void)
     quit_times = TEMIC_QUIT_TIMES;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 2119163 (Improved code for input handling)
 void editorShortcutMoveKeys(int key)
 {
     if (E.filemode == NORMAL_MODE) {
@@ -218,11 +202,7 @@ void editorShortcutMoveKeys(int key)
 
 void editorShortcutEditKeys(int key)
 {
-<<<<<<< HEAD
     if (isEditorNormalMode()) {
-=======
-    if (E.filemode == NORMAL_MODE) {
->>>>>>> 2119163 (Improved code for input handling)
         switch (key) {
             case 'o':
             {
@@ -245,22 +225,14 @@ void editorShortcutEditKeys(int key)
             }
             case 'a':
             {
-<<<<<<< HEAD
                 if (E.numrows > 0 && E.cy <= E.numrows && E.cx < E.row[E.cy].rsize)
-=======
-                if (E.cx < E.row[E.cy].rsize)
->>>>>>> 2119163 (Improved code for input handling)
                     E.cx++;
                 break;
             }
             case 'A':
             {
-<<<<<<< HEAD
 				if (E.numrows > 0 && E.cy <= E.numrows)
 					E.cx = E.row[E.cy].rsize;
-=======
-                E.cx = E.row[E.cy].rsize;
->>>>>>> 2119163 (Improved code for input handling)
                 break;
             }
         }
