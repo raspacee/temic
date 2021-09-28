@@ -26,7 +26,7 @@
 #include <time.h>
 #include <sys/types.h>
 
-#define TEMIC_VERSION "0.0.1"
+#define TEMIC_VERSION "0.0.2"
 #define TEMIC_TAB_STOP 4
 #define TEMIC_QUIT_TIMES 3
 
@@ -123,6 +123,7 @@ struct editorConfig {
     int dirty;
     struct editorSyntax *syntax;
     int indent;
+    int argc;
 };
 
 #endif

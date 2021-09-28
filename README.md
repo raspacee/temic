@@ -1,9 +1,9 @@
 # temic
 
-## A simple text editor based on C.
+## A simple commandline text editor based on C.
 
-### Extending the work of kilo by [antirez](https://github.com/antirez).
-### Also special thanks to [snaptoken](https://github.com/paileyq) for explaining some of the code.
+### Project originally called kilo by [antirez](https://github.com/antirez).
+### Some code changes made by [snaptoken](https://github.com/paileyq) for explaining some of the code.
 
 ## Usage
 

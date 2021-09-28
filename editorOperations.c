@@ -18,10 +18,8 @@ void editorInsertChar(int c)
 
 void editorDelChar(void)
 {
-    if (E.cy == E.numrows)
-        return;
-    if (E.cy == 0)
-        return;
+	if (E.cx == 0 && E.cy == 0)
+		return;
 
     struct erow *row = &E.row[E.cy];
     if (E.cx > 0) {
@@ -47,8 +45,9 @@ void editorRowAppendString(struct erow *row, char *s, size_t len)
 
 void editorInsertNewline(bool increment_cy)
 {
+    E.widthlen = intLen(E.numrows);
+	
     if (E.cx == 0) {
-        E.widthlen = intLen(E.numrows);
         editorInsertRow(E.cy, "", 0);
     } else {
         struct erow *row = &E.row[E.cy];
@@ -190,6 +189,23 @@ void editorDelRow(int at)
 
     E.numrows--;
     E.dirty++;
+}
+
+void editorModeToggle(void)
+{
+  	if (E.filemode == NORMAL_MODE) {
+		E.filemode = INSERT_MODE;
+		
+		if (E.argc == 1 && E.numrows == 0)
+			editorInsertNewline(false);
+	} else {
+		E.filemode = NORMAL_MODE;
+	}
+}
+
+bool isEditorNormalMode(void)
+{
+	return E.filemode == NORMAL_MODE;
 }
 
 int editorRowRxToCx(struct erow *row, int rx)

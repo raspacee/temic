@@ -62,12 +62,13 @@ void editorProcessKeypress(void)
 
     switch(c) {
         case '\r':
-            editorInsertNewline(true);
+			if (!isEditorNormalMode())
+				editorInsertNewline(true);
             break;
 
         case CTRL_C:
-            if (E.filemode == INSERT_MODE)
-                E.filemode = NORMAL_MODE;
+            if (!isEditorNormalMode())
+				editorModeToggle();
             break;
 
         case CTRL_F:
@@ -97,6 +98,9 @@ void editorProcessKeypress(void)
         case BACKSPACE:
         case CTRL_H:
         case DEL_KEY:
+			if (isEditorNormalMode())
+				break;
+			
             if (c == DEL_KEY)
                 editorMoveCursor(ARROW_RIGHT);
             editorDelChar();
@@ -139,12 +143,21 @@ void editorProcessKeypress(void)
         case 'O':
         {
            editorShortcutEditKeys(c);
+<<<<<<< HEAD
+=======
             if (E.filemode == NORMAL_MODE) {
                 E.filemode = INSERT_MODE;
                 break;
             }
         }
+>>>>>>> 2119163 (Improved code for input handling)
 
+		   if (isEditorNormalMode()) {
+			   editorModeToggle();
+		   }
+
+		   break;
+        }
 
         case 'j':
         case 'k':
@@ -154,13 +167,17 @@ void editorProcessKeypress(void)
         case 'b':
         {
             editorShortcutMoveKeys(c);
+<<<<<<< HEAD
+            if (isEditorNormalMode())
+=======
             if (E.filemode == NORMAL_MODE)
+>>>>>>> 2119163 (Improved code for input handling)
                 break;
         }
 
         default:
         {
-            if (E.filemode == INSERT_MODE)
+            if (!isEditorNormalMode())
                 editorInsertChar(c);
         }
             break;
@@ -169,6 +186,10 @@ void editorProcessKeypress(void)
     quit_times = TEMIC_QUIT_TIMES;
 }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 2119163 (Improved code for input handling)
 void editorShortcutMoveKeys(int key)
 {
     if (E.filemode == NORMAL_MODE) {
@@ -197,7 +218,11 @@ void editorShortcutMoveKeys(int key)
 
 void editorShortcutEditKeys(int key)
 {
+<<<<<<< HEAD
+    if (isEditorNormalMode()) {
+=======
     if (E.filemode == NORMAL_MODE) {
+>>>>>>> 2119163 (Improved code for input handling)
         switch (key) {
             case 'o':
             {
@@ -220,13 +245,22 @@ void editorShortcutEditKeys(int key)
             }
             case 'a':
             {
+<<<<<<< HEAD
+                if (E.numrows > 0 && E.cy <= E.numrows && E.cx < E.row[E.cy].rsize)
+=======
                 if (E.cx < E.row[E.cy].rsize)
+>>>>>>> 2119163 (Improved code for input handling)
                     E.cx++;
                 break;
             }
             case 'A':
             {
+<<<<<<< HEAD
+				if (E.numrows > 0 && E.cy <= E.numrows)
+					E.cx = E.row[E.cy].rsize;
+=======
                 E.cx = E.row[E.cy].rsize;
+>>>>>>> 2119163 (Improved code for input handling)
                 break;
             }
         }
